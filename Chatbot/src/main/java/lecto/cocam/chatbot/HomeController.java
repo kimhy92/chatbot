@@ -58,8 +58,10 @@ public class HomeController {
 	public String test(Locale locale, Model model) throws Exception {
 		String token = null;
 		try {
-			File file = new File("MyProject.json");
-
+			File file = new File("/resources/MyProject.json");
+			
+			
+			
 			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
 			GoogleCredential credential = GoogleCredential.fromStream(inputStream);
 
