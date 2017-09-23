@@ -49,9 +49,22 @@ public class Test {
 		} catch (IOException ie) {
 			Assert.assertNotNull(token);
 		}
-
+		
+		for(String tmp : StringsClass.strings) {
+			// 1. AnalyzeEntities
+			AnalyzeQuestion.analyzeEntitiesText(tmp);
+			System.out.println("==================================================");
+			
+			// 2. Sentiment
+			AnalyzeQuestion.analyzeSentimentText(tmp);
+			System.out.println("==================================================");
+			
+			// 3. Syntax
+			AnalyzeQuestion.analyzeSyntaxText(tmp);
+			System.out.println("==================================================");
+		}
 		// Instantiates a client
-		try (LanguageServiceClient language = LanguageServiceClient.create()) {
+		/*try (LanguageServiceClient language = LanguageServiceClient.create()) {
 
 			// The text to analyze
 			String text = "전문가 과정 다음 기수 일정은 어떻게 되나요?";
@@ -131,6 +144,6 @@ public class Test {
 				System.out.printf("\tHeadTokenIndex: %d\n", token2.getDependencyEdge().getHeadTokenIndex());
 				System.out.printf("\tLabel: %s\n\n", token2.getDependencyEdge().getLabel());
 			}
-		}
+		}*/
 	}
 }
