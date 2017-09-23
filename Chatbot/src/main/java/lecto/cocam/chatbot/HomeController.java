@@ -1,9 +1,6 @@
 package lecto.cocam.chatbot;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
@@ -11,15 +8,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import org.json.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.services.compute.ComputeScopes;
+import com.google.cloud.language.v1.Token;
 
 import lecto.cocam.chatbot.dao.QuestDAO;
 import lecto.cocam.chatbot.util.AnalyzeQuestion;
@@ -48,7 +46,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String test(Locale locale, Model model) throws Exception {
+	public JSONArray test(Locale locale, Model model) throws Exception {
 		String token = null;
 		try {
 			//File file = new File("/resources/MyProject.json");
@@ -82,8 +80,29 @@ public class HomeController {
 //			Assert.assertNotNull(token);
 		}
 		
-		AnalyzeQuestion.analyzeEntitiesText("전문가 과정의 다음 기수 일정은 어떻게 되나요?");
-		
-		return "test";
+		List<Token> res=AnalyzeQuestion.analyzeSyntaxText("전문가 과정의 다음 기수 일정은 어떻게 되나요?");
+		JSONArray ary=new JSONArray();
+		for(Token tmp:res){
+			JSONObject obj=new JSONObject();
+			obj.put("Text", tmp.getText().getContent());
+			obj.put("BeginOffset", tmp.getText().getBeginOffset());
+			obj.put("Lemma", tmp.getLemma());
+			obj.put("PartOfSpeeachTag", tmp.getPartOfSpeech().getTag());
+			obj.put("Aspect",tmp.getPartOfSpeech().getAspect());
+			obj.put("Case",tmp.getPartOfSpeech().getCase());
+			obj.put("Form",tmp.getPartOfSpeech().getForm());
+			obj.put("Gender",tmp.getPartOfSpeech().getGender());
+			obj.put("Mood",tmp.getPartOfSpeech().getMood());
+			obj.put("Number",tmp.getPartOfSpeech().getNumber());
+			obj.put("Person",tmp.getPartOfSpeech().getPerson());
+			obj.put("Proper",tmp.getPartOfSpeech().getProper());
+			obj.put("Reciprocity",tmp.getPartOfSpeech().getReciprocity());
+			obj.put("Tense",tmp.getPartOfSpeech().getTense());
+			obj.put("Voice",tmp.getPartOfSpeech().getVoice());
+			obj.put("HeadTokenIndex",tmp.getDependencyEdge().getHeadTokenIndex());
+			obj.put("Label",tmp.getDependencyEdge().getLabel());
+			ary.put(obj);
+		}
+		return ary;
 	}
 }
