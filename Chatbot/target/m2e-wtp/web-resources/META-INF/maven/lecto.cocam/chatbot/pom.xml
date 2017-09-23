@@ -155,12 +155,17 @@
 			<artifactId>google-cloud</artifactId>
 			<version>0.20.3-alpha</version>
 		</dependency>
-
+		
 		<!-- For GoogleCredential -->
 		<dependency>
 			<groupId>com.google.apis</groupId>
 			<artifactId>google-api-services-oauth2</artifactId>
 			<version>v1-rev134-1.22.0</version>
+		</dependency>
+	  	<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
 		</dependency>
 	</dependencies>
 	<build>
