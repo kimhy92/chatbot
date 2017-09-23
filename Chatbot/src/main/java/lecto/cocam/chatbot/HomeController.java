@@ -112,7 +112,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/getMessage", method = RequestMethod.GET)
 	public void getMessage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String msg=request.getParameter("userMessage");
+		String msg=request.getParameter("message");
 		
 		JSONObject obj=new JSONObject();
 		obj.put("msg", msg);

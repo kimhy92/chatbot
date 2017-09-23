@@ -61,28 +61,28 @@
 	
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg">
+	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title" id="myModalLabel">온라인 자동 상담하기</h4>
 	      </div>
 	      
-	      <div class="modal-body" id="chat_room">
-	          <div class="container-fluid">
+	      <div class="modal-body">
+	          <div class="container-fluid"id="chat_room">
 	            <div class="row">
-	              <div class="col-md-10"><p class="text-left">ChatBot : 안녕하세요 렉토피아입니다.</p></div>
+	              <div class="col-md-10"><p class="text-left">LectoBot : 안녕하세요 렉토피아입니다.</p></div>
 	            </div>
-	            <div class="row">
+	            <!-- <div class="row">
 	              <div class="col-md-offset-2 col-md-10"><p class="text-right">안녕하세요 렉토피아입니다. : 사용자</p></div>
-	             </div>
+	             </div> -->
 	          </div>
 	      </div>	      
 	      
 	      <div class="modal-footer">
 	      	<div class="row">
               <div class="col-md-10"><input type="text" id="message" class="form-control" placeholder="메시지를 입력하세요."></input></div>
-              <div class="col-md-2"><button type="button" class="btn btn-primary">보내기</button></div>
+              <div class="col-md-2"><button type="button" class="btn btn-primary" onclick="getMessage()">보내기</button></div>
 	      	</div>
 		  </div>
 	    </div>
@@ -93,5 +93,33 @@
     
     <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" language="javascript">
+	var getMessage=function (){
+		var msg=$('#message').val();
+		var $div = $('<div class="row"><div class="col-md-offset-2 col-md-10"><p class="text-right">'+msg+': 사용자</p></div></div>');
+		$('#message').val("");
+		$('#chat_room').append($div);
+	    $.ajax({      
+	        type:"GET",  
+	        url:"http://localhost:8080/chatbot/getMessage",      
+	        data:{
+	        	"message":msg
+	        },      
+	        success:function(args){
+	            var data=JSON.parse(args);
+	            var msg=data.msg
+	    		var $div = $('<div class="row"><div class="col-md-10"><p class="text-left">LectoBot : '+msg+'</p></div></div>');
+	    		$('#message').val("");
+	    		$('#chat_room').append($div);
+	        },     
+	        error:function(e){  
+	            alert(e.responseText);  
+	        }  
+	    });  
+	}
+	</script>
+
+
 </body>
 </html>
