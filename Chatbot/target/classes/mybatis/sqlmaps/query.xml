@@ -4,9 +4,15 @@
 
 
 <mapper namespace="dao">
-	<select id="readAll" resultType="String">
+	<select id="readAll" resultType="vo.Quest">
 		SELECT
-		name as name
-		FROM test
+		lecture_code,lecture_name,start_date,end_date,teacher,curriculum
+		FROM lecture_tb
 	</select>
+	<insert id="insert" parameterType="vo.Quest">
+		insert into lecture_tb(lecture_code,lecture_name,start_date,end_date,teacher,curriculum) values(#{lecture_code},#{lecture_name},#{start_date},#{end_date},#{teacher},#{curriculum})
+	</insert>
+	<delete id="delete" parameterType="vo.Quest">
+		delete from lecture_tb where lecture_code = #{lecture_code}
+	</delete>
 </mapper>
