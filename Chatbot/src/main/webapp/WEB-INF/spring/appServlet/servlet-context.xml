@@ -40,6 +40,7 @@
       <beans:property name="mappings">
          <beans:value>
             /=homeController
+            /test=homeController
          </beans:value>
       </beans:property>
    </beans:bean>
