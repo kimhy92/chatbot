@@ -68,22 +68,27 @@
 	        <h4 class="modal-title" id="myModalLabel">온라인 자동 상담하기</h4>
 	      </div>
 	      
-	      <div class="modal-body">
-	      
-	      </div>
+	      <div class="modal-body" id="chat_room">
+	          <div class="container-fluid">
+	            <div class="row">
+	              <div class="col-md-10"><p class="text-left">ChatBot : 안녕하세요 렉토피아입니다.</p></div>
+	            </div>
+	            <div class="row">
+	              <div class="col-md-offset-2 col-md-10"><p class="text-right">안녕하세요 렉토피아입니다. : 사용자</p></div>
+	             </div>
+	          </div>
+	      </div>	      
 	      
 	      <div class="modal-footer">
-		      <form class="form-inline">
-				  <div class="form-group">
-				    <label for="InputMessage">메시지</label>
-				    <input type="text" class="form-control" id="InputMessage" placeholder="메시지를 입력하세요.">
-				  </div>
-				  <button type="submit" class="btn btn-primary">보내기</button>
-				</form>
+	      	<div class="row">
+              <div class="col-md-10"><input type="text" id="message" class="form-control" placeholder="메시지를 입력하세요."></input></div>
+              <div class="col-md-2"><button type="button" class="btn btn-primary">보내기</button></div>
+	      	</div>
 		  </div>
 	    </div>
 	  </div>
 	</div>
+	
     <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     
