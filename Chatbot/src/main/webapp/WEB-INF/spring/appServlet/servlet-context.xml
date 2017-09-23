@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
@@ -31,20 +33,21 @@
 		p:sqlSession-ref="sqlSession"></beans:bean>
 
 	<beans:bean id="testDao" class="lecto.cocam.chatbot.dao.TestDAO"
-		p:sqlSession-ref="sqlSession"></beans:bean>
-
-	<beans:bean id="homeController" class="lecto.cocam.chatbot.HomeController"
-		p:questDao-ref="questDAO">
-	</beans:bean>
-
-	<!-- Handler Mapping -->
-	<beans:bean id="handlerMapping"
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<beans:property name="mappings">
-			<beans:value>
-				/=homeController
-			</beans:value>
-		</beans:property>
-	</beans:bean>
-
+   p:sqlSession-ref="sqlSession"></beans:bean>
+	
+   <beans:bean id="homeController" class="lecto.cocam.chatbot.HomeController"
+   p:questDao-ref="questDao">
+   </beans:bean>
+   
+   <!-- Handler Mapping -->   
+   <beans:bean id="handlerMapping"
+      class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+      <beans:property name="mappings">
+         <beans:value>
+            /=homeController
+            /test=homeController
+         </beans:value>
+      </beans:property>
+   </beans:bean>
+	
 </beans:beans>
