@@ -108,7 +108,7 @@
 	        },      
 	        success:function(args){
 	            var data=JSON.parse(args);
-	            var msg=data.msg
+	            var msg=data.content
 	    		var $div = $('<div class="row"><div class="col-md-10"><p class="text-left">LectoBot : '+msg+'</p></div></div>');
 	    		$('#message').val("");
 	    		$('#chat_room').append($div);

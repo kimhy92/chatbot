@@ -115,7 +115,9 @@ public class HomeController {
 		String msg=request.getParameter("message");
 		
 		JSONObject obj=new JSONObject();
-		obj.put("msg", msg);
+		//obj.put("date", value);
+		obj.put("writeId", "LectoBot");
+		obj.put("content", msg);
 		//여기서 응답메시지 만들어서 obj에 넣으면 됨
 		try {
 			response.setCharacterEncoding("UTF-8");
