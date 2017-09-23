@@ -9,8 +9,7 @@
 </head>
 <body>
 	<c:forEach var="name" items="${names}">
-		<p>${name}</p>
+		<p>${name.}</p>
 	</c:forEach>
-	
 </body>
 </html>

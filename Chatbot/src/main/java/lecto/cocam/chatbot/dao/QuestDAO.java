@@ -5,15 +5,17 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class TestDAO {
-	private SqlSession sqlSession;
+import vo.Quest;
 
-	public TestDAO() {
+@Repository
+public class QuestDAO {
+	private SqlSession sqlSession;
+	
+	public QuestDAO() {
 		super();
 	}
 
-	public TestDAO(SqlSession sqlSession) {
+	public QuestDAO(SqlSession sqlSession) {
 		super();
 		this.sqlSession = sqlSession;
 	}
@@ -21,8 +23,13 @@ public class TestDAO {
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-
-	public List<String> read() {	
+	public void insert(Quest quest){
+		sqlSession.insert("dao.insert",quest);
+	}
+	public void deleteQuset(Quest quest){
+		sqlSession.delete("dao.delete",quest);
+	}
+	public List<Quest> read() {	
 		return sqlSession.selectList("readAll");
 	}
 }
