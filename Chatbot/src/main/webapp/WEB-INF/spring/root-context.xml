@@ -16,7 +16,6 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<util:properties id="jdbc" location="classpath:config/jdbc.properties" />
-	<!-- <import resource="jdbc-config.xml" /> -->
 	<bean class="org.springframework.jdbc.datasource.SimpleDriverDataSource"
 		id="dataSource">
 		<property value="#{jdbc['jdbc.driverClass']}" name="driverClass" />

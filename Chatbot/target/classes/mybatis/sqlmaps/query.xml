@@ -4,5 +4,9 @@
 
 
 <mapper namespace="dao">
-	
+	<select id="readAll" resultType="String">
+		SELECT
+		name as name
+		FROM test
+	</select>
 </mapper>
