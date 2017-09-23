@@ -13,38 +13,77 @@
 </head>
 <body>
 	<div class="container">
-		<c:forEach var="name" items="${names}">
-			<p>${name}</p>
-		</c:forEach>
-		<div class="row">
-			<div class="col-md-1">.col-md-1</div>
+		<div class="header">
+			<nav>
+				<ul class="nav nav-pills pull-right">
+					<li role="presentation" class="active"><a href="#">Home</a></li>
+					<li role="presentation"><a href="#">About</a></li>
+					<li role="presentation"><a href="#">Contact</a></li>
+				</ul>
+			</nav>
+			<h3 class="text-muted"><a href="#">Lectopia</a></h3>
 		</div>
-		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-		  Launch demo modal
-		</button>
 		
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-		      </div>
-		      <div class="modal-body">
-		        ...
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+      	<div class="jumbotron">
+        	<h1>Jumbotron heading</h1>
+        	<p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        	<p><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">상담하기</button></p>
+      	</div>
+      	
+      	<div class="row marketing">
+	        <div class="col-lg-6">
+	          <h4>Subheading</h4>
+	          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+	
+	          <h4>Subheading</h4>
+	          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+	
+	          <h4>Subheading</h4>
+	          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+	        </div>
+
+	        <div class="col-lg-6">
+	          <h4>Subheading</h4>
+	          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+	
+	          <h4>Subheading</h4>
+	          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+	
+	          <h4>Subheading</h4>
+	          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+	        </div>
+      </div>
+
+      <footer class="footer">
+        <p>&copy; Coding Camp 2017</p>
+      </footer>
 	</div>
 	
-    
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">온라인 자동 상담하기</h4>
+	      </div>
+	      
+	      <div class="modal-body">
+	      
+	      </div>
+	      
+	      <div class="modal-footer">
+		      <form class="form-inline">
+				  <div class="form-group">
+				    <label for="InputMessage">메시지</label>
+				    <input type="text" class="form-control" id="InputMessage" placeholder="메시지를 입력하세요.">
+				  </div>
+				  <button type="submit" class="btn btn-primary">보내기</button>
+				</form>
+		  </div>
+	    </div>
+	  </div>
+	</div>
     <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     
