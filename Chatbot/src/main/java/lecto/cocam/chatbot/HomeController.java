@@ -3,10 +3,14 @@ package lecto.cocam.chatbot;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
@@ -104,5 +108,25 @@ public class HomeController {
 			ary.put(obj);
 		}
 		return ary;
+	}
+	
+	@RequestMapping(value = "/getMessage", method = RequestMethod.GET)
+	public void getMessage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String msg=request.getParameter("userMessage");
+		
+		JSONObject obj=new JSONObject();
+		obj.put("msg", msg);
+		//여기서 응답메시지 만들어서 obj에 넣으면 됨
+		try {
+			response.setCharacterEncoding("UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			out.write(obj.toString());
+			// System.out.println("[" +  obj.toString() + "]");
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
