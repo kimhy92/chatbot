@@ -35,6 +35,7 @@ import vo.Quest;
 @Controller
 public class HomeController {
 	private QuestDAO questDao;
+	private static int dataValue=0;
 
 	public void setQuestDao(QuestDAO questDao) {
 		this.questDao = questDao;
@@ -42,9 +43,14 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		//List<Quest> names = questDao.read();
+		List<Quest> names = questDao.read();
 		//model.addAttribute("names", names);
-		questDao.deleteQuset(new Quest("sdgsdg","",Timestamp.valueOf("1111-11-11 11:11:11"),Timestamp.valueOf("1111-11-11 11:11:11"),"",""));
+		System.out.println(names.size());
+		List<Quest> temp=questDao.readByTeacher("정혜경");
+		System.out.println("--------------------------나 찍힘?"+temp.size());
+		for(int i=0;i<temp.size();++i)
+			System.out.println(temp.get(i).getTeacher());
+		//questDao.deleteQuset(new Quest("sdgsdg","",Timestamp.valueOf("1111-11-11 11:11:11"),Timestamp.valueOf("1111-11-11 11:11:11"),"",""));
 		//questDao.insert(new Quest("sdgsdg","SDg",Timestamp.valueOf("2015-4-30 10:34:24"),Timestamp.valueOf("2015-4-30 10:34:24"),"SDg","Sdgsd"));
 		return "home";
 	}
@@ -117,8 +123,25 @@ public class HomeController {
 		JSONObject obj=new JSONObject();
 		//obj.put("date", value);
 		obj.put("writeId", "LectoBot");
-		obj.put("content", msg);
 		//여기서 응답메시지 만들어서 obj에 넣으면 됨
+		List<Token> list=getMessage(msg);
+		List<Quest> data=questDao.read();
+		String content="";
+		switch (dataValue) {
+		case 0:
+			content=data.get(0).getStart_date().toString()+" ~ " +data.get(0).getEnd_date().toString();
+			break;
+
+		case 1:
+			content=data.get(0).getCurriculum();
+			break;
+		case 2:
+			content=data.get(1).getStart_date().toString()+" ~ " +data.get(1).getEnd_date().toString();
+			break;
+		}
+		dataValue++;
+		
+		obj.put("content", content);
 		try {
 			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
@@ -130,5 +153,34 @@ public class HomeController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	private List<Token> getMessage(String msg) throws Exception{
+		String token = null;
+		//File file = new File("/resources/MyProject.json");
+		JSONObject object=new JSONObject();
+		object.put("type", "service_account");
+		object.put("project_id", "chatbot-180809");
+		object.put("private_key_id", "abc525433363fbb4f2223ecce7c42bc7ac34e630");
+		object.put("private_key", "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCxocisoq1cVdhi\nihfw1xsAy0njg0fBHzdibC0aLcNNUD8EwGSIjGpA1VkJHG1z3R2s1cf2h3fDx4Gf\nNTZBLybQE/ivjyQ4g7h+fnFIcdzdhycZGdpaqvUgQjE7W3qZ2D4YnlicXaF6z2m7\nQOoVQ5GEFrhdXaGjMiTQKAs7wffjwlGk8F3MWoZ/ZD/Wlloxo3qfnnzZceSrN+Yf\nCW0JhsF+KUmWIShO/cGA5mq7fwDPZCWupzPoH4wSFGrfbdOPjO7/+CzrL9pdRgVF\nxm2RLC9k0cQRvfxwqdKg47DZhsMhgFfT9pi9DDYB0coAK9UAllB1Wd+F6lXqmNoi\nxQHm6A0RAgMBAAECggEAA5CspPUr5EVJAngYKtC9nXQddftE/3Xt4bDfOkRuXcwg\ndt4zD/MitwC0ZYSRGGj489nWxlaQNQxfrq9Kkp+mMgY6MMqlu07YSMBz0hr07msZ\nKHDc8ZwD4pA2VqUx1Moi1VHCRtS+c7PoTZmSYsRewVp6YoDvu4VU+OrA1PcO6SuN\nGg9uFkt34Uwr2+4g6pnrj3qgLfejquV6iEf4ZTwqS/+dkkwyMilp11H4VqbaCJF1\nCJIFgha8cX2FNp8PRWlCwHmkGSOeJZNes5SSqdnA64rvc8uBiycotPWUbXYhKODo\nOkZjdocWIov/6krKPhUF1b1J5c60hpJOixBxdCSMpQKBgQDsYUUBPg3xXJ8K+lao\nJZYMhg0B2yjsghDoXrRet99hJGGSIxRgwJpErl/K+8WTeBsNoLS49NEb9WjNTFrr\nKEe14pl1SWcYSLoBbxykAGurVxiNdra501NK8KVJ20/mO+LDqxapLmu/tFJFvR3T\n//z3UIvsyfB9FDIRAaF7DLMa1QKBgQDAYDR3NHWOVx/LHE1jVb13U0R+rsvoAnio\n9gTf/0bWDqcJASRognJRRLrKo9ig3TL2+3nvCFE5fD+AKJcMyNRn+7EHh4a0hCRD\nzU6HZelnC6PTMejmpI7fPyZW6LJ3EUu82/ctJJ/YulNfk6NfMlAggWmGMVMV+8Xd\n6Us1EtyPTQKBgQCQlw82q1asBRPkCy1mvVcDYhwivoRR512gRg3ewmqJaU+lrH+S\njz3ONTuzVj6M7jLeKydg25/tkjgBHGug3IrA31MvQy8k05ezuNu0Fe3GaQhDwBIV\nqQaSGJGCk/xTwN39AnJiGlsecJbCweO1AikivspYlU3dtLTLYkv8kNAd4QKBgCTP\nQ7q7cvL1gMPgen5TXZmDeUu0LpgKQQQzbuNdeTRkQVnbuhe1PiKGwCceCsldCe9w\nVviB4ujY+V2QZravhtUOt+T07bWEw1ul4SzPN0XcWFCE8EeRnTTiZHektuFJkfBl\nNnqQ03Uo0eMr4MrKWcKegI6IyZkfP9EiXp2dKk7RAoGAPmGiBoiKnb+qNXztAGQr\neuWZFHaorx+by3IOM2XFKKZEE5GCQzpE7q7DETE1el9bXNwJIJGuPHlZuthztCKK\nVWQ9X+mywRqYpbN9HcXZux8ieEhB2YRD5if3E/OfDC5c7v6NCqhD3L77JzCjBuTe\nGLLJUj9dZDLE9zmYHEhKnvk=\n-----END PRIVATE KEY-----\n");
+		object.put("client_email", "chatbot@chatbot-180809.iam.gserviceaccount.com");
+		object.put("client_id", "107993109382179915496");
+		object.put("auth_uri", "https://accounts.google.com/o/oauth2/auth");
+		object.put("token_uri", "https://accounts.google.com/o/oauth2/token");
+		object.put("auth_provider_x509_cert_url", "https://www.googleapis.com/oauth2/v1/certs");
+		object.put("client_x509_cert_url", "https://www.googleapis.com/robot/v1/metadata/x509/chatbot%40chatbot-180809.iam.gserviceaccount.com");
+		
+		InputStream inputStream=new ByteArrayInputStream(object.toString().getBytes());
+		//InputStream inputStream = new BufferedInputStream(new FileInputStream(object.toString()));
+		GoogleCredential credential = GoogleCredential.fromStream(inputStream);
+
+		List<String> COMPUTE_SCOPES = Collections.singletonList(ComputeScopes.COMPUTE);
+		if (credential.createScopedRequired()) {
+			credential = credential.createScoped(COMPUTE_SCOPES);
+		}
+
+		credential.refreshToken();
+		token = credential.getAccessToken();
+		return AnalyzeQuestion.analyzeSyntaxText(msg);
+		
 	}
 }

@@ -9,6 +9,24 @@
 		lecture_code,lecture_name,start_date,end_date,teacher,curriculum
 		FROM lecture_tb
 	</select>
+	<select id="readByTeacher" parameterType="String" resultType="vo.Quest">
+		SELECT
+		lecture_code,lecture_name,start_date,end_date,teacher,curriculum
+		FROM lecture_tb
+		WHERE teacher = #{teacher}
+	</select>
+	<select id="readByLectureName" resultType="vo.Quest">
+		SELECT
+		lecture_code,lecture_name,start_date,end_date,teacher,curriculum
+		FROM lecture_tb
+		WHERE lecture_name = #{lecture_name}
+	</select>
+	<select id="readByTeacherAndLectureName" resultType="vo.Quest">
+		SELECT
+		lecutre_code,lecture_name,start_date,end_date,teacher,curriculum
+		FROM lecture_tb
+		WHERE lecture_name = #{lecture_name},teacher = #{teacher}
+	</select>
 	<insert id="insert" parameterType="vo.Quest">
 		insert into lecture_tb(lecture_code,lecture_name,start_date,end_date,teacher,curriculum) values(#{lecture_code},#{lecture_name},#{start_date},#{end_date},#{teacher},#{curriculum})
 	</insert>

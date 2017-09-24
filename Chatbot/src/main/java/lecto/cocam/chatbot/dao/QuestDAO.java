@@ -29,6 +29,15 @@ public class QuestDAO {
 	public void deleteQuset(Quest quest){
 		sqlSession.delete("dao.delete",quest);
 	}
+	public List<Quest> readByLectureName(String lecture_name){
+		return sqlSession.selectList("readByLectureName");
+	}
+	public List<Quest> readByTeacher(String teacher){
+		return sqlSession.selectList("readByTeacher");
+	}
+	public List<Quest> readByTeacherAndLectureName(String teacher,String lecture_name){
+		return sqlSession.selectList("readByTeacherAndLectureName");
+	}
 	public List<Quest> read() {	
 		return sqlSession.selectList("readAll");
 	}
