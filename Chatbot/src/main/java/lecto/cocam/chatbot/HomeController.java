@@ -129,14 +129,14 @@ public class HomeController {
 		String content="";
 		switch (dataValue) {
 		case 0:
-			content=data.get(0).getStart_date().toString()+" ~ " +data.get(0).getEnd_date().toString();
+			content="전문가 과정의 일정은 " + data.get(0).getStart_date().toString()+" ~ " +data.get(0).getEnd_date().toString() + " 입니다.";
 			break;
 
 		case 1:
 			content=data.get(0).getCurriculum();
 			break;
 		case 2:
-			content=data.get(1).getStart_date().toString()+" ~ " +data.get(1).getEnd_date().toString();
+			content="자료구조 과정의 일정은 " + data.get(1).getStart_date().toString()+" ~ " +data.get(1).getEnd_date().toString() + "입니다.";
 			break;
 		}
 		dataValue++;
